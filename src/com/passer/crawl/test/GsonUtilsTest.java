@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.passer.crawl.domain.Comment;
 import com.passer.crawl.domain.Comments;
-import com.passer.crawl.domain.Comments.Comment;
 import com.passer.crawl.util.GsonUtils;
 
 /** 

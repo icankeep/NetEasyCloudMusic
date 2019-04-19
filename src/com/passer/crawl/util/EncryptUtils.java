@@ -21,7 +21,12 @@ import org.jsoup.nodes.Document;
 import org.junit.Test;
 
 public class EncryptUtils {
-	// AES加密
+	/**
+	 * AES加密
+	 * @param text	{\"username\": \"\", \"rememberLogin\": \"true\", \"password\": \"\"}<p>
+	 * @param secKey	16位随机的十六进制数<p>
+	 * @return	AES加密值<p>
+	 */
 	public static String encrypt(String text, String secKey) throws Exception {
 		byte[] raw = secKey.getBytes();
 		SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
@@ -34,7 +39,13 @@ public class EncryptUtils {
 		return Base64.getEncoder().encodeToString(encrypted);
 	}
 
-	// 字符填充
+	/**
+	 * 字符填充，如result长度大于等于n,则无需填充，取result后n个字符<p>
+	 * 如result长度小于n，则将补充'0'到result末尾直到长度等于n
+	 * @param result	需要填充的字符串
+	 * @param n			需要填充完成之后字符串的位数
+	 * @return			填充完成之后的字符串
+	 */
 	public static String zfill(String result, int n) {
 		if (result.length() >= n) {
 			result = result.substring(result.length() - n, result.length());
@@ -49,7 +60,11 @@ public class EncryptUtils {
 		return result;
 	}
 
-	public static Map<String,String> commentAPI() throws Exception {
+	/**
+	 * 获取爬取过程中需要的加密参数，包含params、encSecKey<p>
+	 * @return 返回形式为map，params=paramsValue,encSecKey=encSecKeyValue
+	 */
+	public static Map<String,String> encryptParams() throws Exception {
 		//存储encSecKey和params
 		Map<String,String> map = new HashMap<>();
 		// 私钥，随机16位字符串（自己可改）
@@ -58,6 +73,7 @@ public class EncryptUtils {
 		String modulus = "00e0b509f6259df8642dbc35662901477df22677ec152b5ff68ace615bb7b725152b3ab17a876aea8a5aa76d2e417629ec4ee341f56135fccf695280104e0312ecbda92557c93870114af6c9d05c4f7f0c3685b7a46bee255932575cce10b424d813cfe4875d3e82047b97ddef52741d546b8e289dc6935b3ece0462db0a22b8e7";
 		String nonce = "0CoJUm6Qyw8W8jud";
 		String pubKey = "010001";
+		System.out.println(modulus.length());
 		// 2次AES加密，得到params
 		String params = encrypt(encrypt(text, nonce), secKey);
 		map.put("params", params);

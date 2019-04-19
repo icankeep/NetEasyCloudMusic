@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.passer.crawl.domain.Comments;
-import com.passer.crawl.domain.Comments.Comment;
 
 /**
  * @ClassName: GsonUtils
